@@ -118,7 +118,7 @@ function time() {
 //学习进度图
 (function () {
     var myChart = echarts.init(document.querySelector(".bar_r1 .chart"));
-
+    var valdata = [702, 350, 610, 793, 664];
     option = {
         grid: {
             top: '10%',
@@ -128,21 +128,35 @@ function time() {
         xAxis: {
             show:false
         },
-        yAxis: {
-            type: 'category',
-            show:false,
-            //不显示y轴
-            axisLine: {show: false},
-            splitLine: {show: false},
-            //不显示刻度
-            axisTick: {show: false},
-            axisLabel: {color: "#fff"}
-
-    },
+        yAxis: [
+            {
+                type: 'category',
+                data: ["HTML5", "CSS3", "javascript", "VUE", "NODE"],
+                inverse: true,
+                //不显示y轴
+                axisLine: {show: false},
+                splitLine: {show: false},
+                //不显示刻度
+                axisTick: {show: false},
+                axisLabel: {color: "#fff"}
+            },
+            {
+                show: true,
+                inverse: true,
+                data: valdata,
+                axisLabel: {
+                    textStyle: {
+                        fontSize: 12,
+                        color: "#fff"
+                    }
+            }
+            }
+    ],
         series: [
             {
                 name: '条',
                 type: 'bar',
+                yAxisIndex: 0,
                 data: [70, 34, 60, 78, 69],
                 //条之间的距离
                 barCategoryGap: 50,
@@ -155,14 +169,133 @@ function time() {
                         //     return myColor[params.dataIndex % num];
                         // }
 
+                },
+                //设置进度百分比
+                label:{
+                    show:true,
+                    position:"inside",
+                    //{c}自动解析为数据data里的数据
+                    formatter:"{c}%"
                 }
-            },
+                },
+
             {
-                name: '2012年',
+                name: '框',
                 type: 'bar',
-                data: [19325, 23438, 31000, 121594, 134141, 681807]
+                yAxisIndex: 1,
+                barCategoryGap: 50,
+                barWidth: 15,
+                itemStyle: {
+                    color: "none",
+                    borderColor: "#00c1de",
+                    borderWidth: 3,
+                    barBorderRadius: 15
+                },
+                data: [100, 100, 100, 100, 100]
             }
         ]
     };
     myChart.setOption(option);
+    window.addEventListener("resize",function () {
+        myChart.resize();
+    });
+})();
+//左二折线图
+(function () {
+    var myChart = echarts.init(document.querySelector(".line .chart"));
+    option = {
+        color: ["#00f2f1", "#ed3f35"],//两条线的颜色
+        tooltip: {
+            trigger: 'axis'
+        },
+        legend: {
+           right:"10%",
+           textStyle:{
+               color:"#4c9bfd"
+           }
+        },
+        grid: {
+            top: "20%",
+            left: "3%",
+            right: "4%",
+            bottom: "3%",
+            show: true,
+            borderColor: "#012f4a",
+            containLabel: true
+        },
+
+        xAxis: {
+            type: 'category',
+            boundaryGap: false,
+            data: [ "1月",
+                "2月",
+                "3月",
+                "4月",
+                "5月",
+                "6月",
+                "7月",
+                "8月",
+                "9月",
+                "10月",
+                "11月",
+                "12月"],
+            // 去除刻度
+            axisTick: {
+                show: false
+            },
+            // 修饰刻度标签的颜色
+            axisLabel: {
+                color: "rgba(255,255,255,.7)"
+            },
+            // 去除x坐标轴的颜色
+            axisLine: {
+                show: false
+            }
+        },
+        yAxis: {
+            type: 'value',
+            // 去除刻度
+            axisTick: {
+                show: false
+            },
+            // 修饰刻度标签的颜色
+            axisLabel: {
+                color: "rgba(255,255,255,.7)"
+            },
+            // 修改y轴分割线的颜色
+            splitLine: {
+                lineStyle: {
+                    color: "#012f4a"
+                }
+            }
+        },
+
+
+
+
+
+
+        series: [
+
+            {
+                name: '新增粉丝',
+                type: 'line',
+                smooth: true,
+                data: [24, 40, 101, 134, 90, 230, 210, 230, 120, 230, 210, 120],
+            },
+            {
+                name: '新增游客',
+                type: 'line',
+                smooth: true,
+                data:[40, 64, 191, 324, 290, 330, 310, 213, 180, 200, 180, 79]
+            },
+
+        ]
+    };
+
+
+    myChart.setOption(option);
+    window.addEventListener("resize", function() {
+        myChart.resize();
+    });
 })();
