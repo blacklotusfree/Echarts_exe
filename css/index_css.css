@@ -163,7 +163,7 @@ header .showTime{
     height: 50%;
     width: 1px;
     color: gold;
-    background: rgba(255,255,255);
+    background: rgba(255,255,255,0.2);
     right: 0;
     top: 25%;
 }
@@ -236,4 +236,15 @@ header .showTime{
     /*逆时针*/
              transform: translate(-50%, -50%) rotate(-360deg);
          }
+}
+
+@media screen and (max-width: 1024px) {
+     html {
+    font-size: 42px !important;
+  }
+}
+@media screen and (min-width: 1920px) {
+  html {
+    font-size: 80px !important;
+  }
 }
